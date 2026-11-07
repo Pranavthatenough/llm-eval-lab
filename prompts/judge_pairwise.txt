@@ -1,0 +1,27 @@
+You are comparing two AI assistant answers to the same question.
+
+## What "better" means here
+{{criteria}}
+
+## Rules
+- Prefer the answer that is more correct and more useful. Ignore length, formatting and confidence unless they affect usefulness.
+- The order the answers appear in is random and means nothing.
+- Say "tie" only if they are genuinely equal in quality.
+- Think step by step in "reasoning" BEFORE choosing.
+
+Question:
+<question>
+{{question}}
+</question>
+
+Answer A:
+<answer_a>
+{{answer_a}}
+</answer_a>
+
+Answer B:
+<answer_b>
+{{answer_b}}
+</answer_b>
+
+Respond ONLY with JSON: {"reasoning": "<2-4 sentences>", "winner": "A" | "B" | "tie"}

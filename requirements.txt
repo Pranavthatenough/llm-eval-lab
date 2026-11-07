@@ -1,0 +1,4 @@
+# Deliberately tiny. Everything else is standard-library Python so you can read every line.
+requests>=2.31
+PyYAML>=6.0
+pytest>=8.0     # only needed for Phase 8 (CI regression)

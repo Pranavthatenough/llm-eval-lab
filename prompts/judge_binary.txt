@@ -1,0 +1,7 @@
+You are a careful evaluator. Answer the evaluation question below with "yes" or "no".
+Base your decision ONLY on the material provided. Do not assume facts that are not shown.
+Think step by step in "reasoning" BEFORE giving the verdict.
+
+{{question}}
+
+Respond ONLY with JSON: {"reasoning": "<1-3 sentences>", "verdict": "yes" | "no"}

@@ -1,0 +1,30 @@
+# Example only - copy to .github/workflows/llm-evals.yml to use it.
+# Runs the regression gate on a GitHub-hosted runner using Ollama on CPU.
+# A small model keeps it fast enough for CI; use a self-hosted GPU runner for bigger ones.
+name: llm-evals
+on:
+  pull_request:
+    paths: ["prompts/**", "config.yaml", "phases/**"]
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: Install and start Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          (ollama serve > ollama.log 2>&1 &)
+          sleep 5
+          ollama pull llama3.2:3b
+      - name: Run regression gate
+        env:
+          EVAL_MIN_PASS_RATE: "0.7"
+        run: pytest phases/08_bonus_ci_regression -v
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: eval-results, path: results/ }

@@ -1,0 +1,8 @@
+{"id": "g1", "question": "What is the capital of Australia?", "expected": "Canberra"}
+{"id": "g2", "question": "How many days are in a leap year?", "expected": "366"}
+{"id": "g3", "question": "What is the chemical symbol for gold?", "expected": "Au"}
+{"id": "g4", "question": "Which planet is known as the Red Planet?", "expected": "Mars"}
+{"id": "g5", "question": "What is 15% of 200?", "expected": "30"}
+{"id": "g6", "question": "In which year did the Apollo 11 mission land on the Moon?", "expected": "1969"}
+{"id": "g7", "question": "What HTTP status code means 'Not Found'?", "expected": "404"}
+{"id": "g8", "question": "What is the largest ocean on Earth?", "expected": "Pacific"}

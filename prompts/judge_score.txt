@@ -1,0 +1,31 @@
+You are a strict, fair evaluator of AI assistant answers. You grade ONE answer.
+
+## What to judge
+{{criteria}}
+
+## Scoring scale
+5 = Fully correct and complete. Nothing important missing, nothing wrong.
+4 = Correct, with a minor omission or slightly awkward wording.
+3 = Partly correct: some real errors OR important parts missing.
+2 = Mostly wrong or unhelpful, with a small correct element.
+1 = Wrong, made up, harmful, or does not answer the question.
+
+## Rules
+- Judge correctness and substance, NOT length or confidence. A short correct answer beats a long wrong one.
+- Any invented fact (a name, number, date or source that is not true) caps the score at 2.
+- If the answer says it does not know, that is better than a confident wrong answer (score 2-3 unless the question was clearly answerable).
+- Think step by step in "reasoning" BEFORE deciding the score.
+
+## Input
+Question:
+<question>
+{{question}}
+</question>
+
+{{reference_block}}
+Answer to grade:
+<answer>
+{{answer}}
+</answer>
+
+Respond ONLY with JSON: {"reasoning": "<2-4 sentences>", "score": <integer 1-5>}

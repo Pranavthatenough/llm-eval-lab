@@ -1,0 +1,63 @@
+# =============================================================================
+#  LLM Eval Lab - configuration
+# =============================================================================
+#  This is the ONLY file you need to edit to change models or providers.
+#
+#  There are three "roles":
+#    target     -> the model you are TESTING (the "system under test")
+#    judge      -> the model that GRADES answers in LLM-as-judge exercises
+#    embeddings -> the model that turns text into vectors for RAG retrieval
+#
+#  Providers:
+#    ollama             -> local models via Ollama (default, free, no API key)
+#    openai_compatible  -> any server that speaks the OpenAI /v1 API
+#                          (OpenAI, Groq, OpenRouter, LM Studio, vLLM, Ollama's /v1 ...)
+#    mock               -> fake offline model. Use it to check the plumbing works
+#                          before Ollama is installed. Its answers are meaningless.
+#
+#  Quick override without editing this file:
+#    LLMEVAL_PROVIDER=mock      python phases/01_basics/01_first_call.py
+#    LLMEVAL_TARGET_MODEL=qwen3:4b python phases/01_basics/01_first_call.py
+# =============================================================================
+
+target:
+  provider: ollama
+  model: llama3.2:3b           # small + fast. Small models fail in interesting ways - good for learning!
+  base_url: http://localhost:11434
+  temperature: 0.0             # 0 = as repeatable as possible. Phase 1 shows why this matters.
+  seed: 42                     # fixed seed makes local runs more repeatable
+  num_ctx: 8192                # Ollama context window. Its default (4096) silently truncates long RAG prompts.
+  timeout_s: 180
+
+judge:
+  provider: ollama
+  model: llama3.2:3b           # ideally BIGGER than, and different from, the target model
+  base_url: http://localhost:11434
+  temperature: 0.0
+  seed: 42
+  num_ctx: 8192
+  timeout_s: 240
+
+embeddings:
+  provider: ollama
+  model: nomic-embed-text
+  base_url: http://localhost:11434
+  timeout_s: 120
+
+# ---- Example: use a paid / hosted API instead (uncomment and adapt) ----------
+# target:
+#   provider: openai_compatible
+#   model: gpt-4o-mini
+#   base_url: https://api.openai.com/v1
+#   api_key_env: OPENAI_API_KEY    # name of the ENV VAR holding the key - never paste keys here
+#   temperature: 0.0
+#   seed: 42
+
+rag:
+  retriever: embedding         # embedding | keyword   (keyword needs no embedding model)
+  top_k: 3
+  chunk_size_words: 50         # smaller chunks = more precise retrieval, but facts can get split
+
+run:
+  results_dir: results         # every exercise saves a JSON + CSV report here
+  repeats: 3                   # how many times flakiness / consistency exercises repeat a case
